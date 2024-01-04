@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <!-- Add Bootstrap CSS link -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+</head>
+<body class="bg-light">
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h2>Register</h2>
+        </div>
+        <div class="card-body">
+          <form action="/register" method="post">
+            <div class="form-group">
+              <label for="userId">User ID:</label>
+              <input type="text" id="userId" name="userId" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="role">Role:</label>
+              <select id="role" name="role" class="form-control">
+                <option value="student">Student</option>
+                <option value="lecturer">Lecturer</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success">Register</button>
+            <a href="/login" class="btn btn-link">Cancel</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Bootstrap JS and Popper.js scripts -->
+<script>
+  $(document).ready(function () {
+    $("#registrationForm").submit(function (event) {
+      event.preventDefault(); // Prevent form submission
+      $.post("/register", $(this).serialize(), function (data) {
+        // Show an alert based on the server response
+        if (data.message) {
+          alert(data.message);
+          window.location.replace("/login"); // Redirect to login on successful registration
+        } else {
+          alert(data.error || "Registration failed. Please try again.");
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
