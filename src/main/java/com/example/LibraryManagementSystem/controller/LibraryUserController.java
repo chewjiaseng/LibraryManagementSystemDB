@@ -43,10 +43,11 @@ public class LibraryUserController {
         }
     }
 
-    @GetMapping("/dashboard")
+    @GetMapping("/user-dashboard")
     public String showDashboard() {
         return "dashboard";
     }
+
 
     @GetMapping("/admin-dashboard")
     public String showAdminDashboard() {

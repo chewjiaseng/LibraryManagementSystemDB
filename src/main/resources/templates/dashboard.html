@@ -2,12 +2,103 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyNEAUV6AAsjFuCJZ6P5q8b+shU0s2P4X"
+          crossorigin="anonymous">
+
+    <!-- Custom CSS for styling -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #007bff;
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<h2>Welcome to Dashboard</h2>
-<!-- Add content specific to the dashboard -->
+
+<!-- Bootstrap Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">Your Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.html">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2>Welcome to Dashboard</h2>
+
+    <!-- Simplified table design -->
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Book ID</th>
+            <th>Book Name</th>
+            <th>Chapter No</th>
+            <th>Publication Date</th>
+            <th>Category ID</th>
+            <th>Publisher ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over the books and display the data -->
+        <tr th:each="book : ${books}">
+            <td th:text="${book.bookId}"></td>
+            <td th:text="${book.bookName}"></td>
+            <td th:text="${book.chapterNo}"></td>
+            <td th:text="${#dates.format(book.publicationDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${book.category.categoryId}"></td>
+            <td th:text="${book.publisher.publisherId}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-eMNCO9j0r5wz3+zZ8+vQesjAw5w1doAUpyX+3Pun3z97CEdZKT2HVh5lv5Shh0Z"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyNEAUV6AAsjFuCJZ6P5q8b+shU0s2P4X"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>
