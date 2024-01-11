@@ -3,7 +3,9 @@ package com.example.LibraryManagementSystem.entities;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "book")
@@ -17,6 +19,8 @@ public class Book {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date publicationDate;
 
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Chapter> chapters = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "publisherId")
     private Publisher publisher;
