@@ -1,6 +1,7 @@
 package com.example.LibraryManagementSystem.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 @Table(name = "category")
 public class Category {
 
+    @GeneratedValue
     @Id
     private Integer categoryId;
 
@@ -36,6 +38,5 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-// Constructors, getters, setters
 }
 

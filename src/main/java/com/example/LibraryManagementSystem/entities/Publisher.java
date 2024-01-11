@@ -1,6 +1,7 @@
 package com.example.LibraryManagementSystem.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 @Table(name = "publisher")
 public class Publisher {
 
+    @GeneratedValue
     @Id
     private Integer publisherId;
 

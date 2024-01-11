@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "chapter")
 public class Chapter {
 
+    @GeneratedValue
     @Id
     private Integer chapterId;
 

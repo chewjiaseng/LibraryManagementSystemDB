@@ -7,6 +7,7 @@ import java.util.Date;
 @Table(name = "book")
 public class Book {
 
+    @GeneratedValue
     @Id
     private Integer bookId;
 
