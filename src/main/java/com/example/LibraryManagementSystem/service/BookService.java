@@ -4,7 +4,11 @@ import com.example.LibraryManagementSystem.entities.Book;
 import com.example.LibraryManagementSystem.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -41,6 +45,19 @@ public class BookService {
         // Retrieve a book by its ID using findById method
         return bookRepository.findById(Math.toIntExact(id))
                 .orElseThrow(() -> new RuntimeException("Book not found with ID: " + id));
+    }
+
+    @Transactional
+    public void deleteBookById(Integer bookId) {
+        System.out.println("Deleting book with ID: " + bookId);
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
+
+        bookOptional.ifPresentOrElse(
+                bookToDelete -> bookRepository.delete(bookToDelete),
+                () -> {
+                    throw new EntityNotFoundException("Book with ID " + bookId + " not found.");
+                }
+        );
     }
 
     // Additional methods if needed
