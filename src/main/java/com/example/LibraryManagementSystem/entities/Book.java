@@ -1,5 +1,7 @@
 package com.example.LibraryManagementSystem.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,14 +14,15 @@ public class Book {
 
     private String bookName;
     private Integer chapterNo;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date publicationDate;
 
     @ManyToOne
     @JoinColumn(name = "publisherId")
     private Publisher publisher;
 
-    @ManyToOne
-    @JoinColumn(name = "categoryId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Book(){}

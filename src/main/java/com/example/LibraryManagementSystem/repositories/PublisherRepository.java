@@ -6,5 +6,7 @@ import java.util.Optional;
 
 public interface PublisherRepository extends JpaRepository<Publisher, Integer> {
     // Additional query methods if needed
+    @Override
+    <S extends Publisher> S save(S entity);
 }
 

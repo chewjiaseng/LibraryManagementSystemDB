@@ -16,6 +16,33 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public void updateBook(Book updatedBook) {
+        // Check if the book with the given ID exists
+        if (bookRepository.existsById(updatedBook.getBookId())) {
+            // Retrieve the existing book from the database
+            Book existingBook = bookRepository.findById(updatedBook.getBookId()).orElseThrow();
+
+            // Update the book details using setters
+            existingBook.setBookName(updatedBook.getBookName());
+            existingBook.setPublisher(updatedBook.getPublisher());
+            existingBook.setChapterNo(updatedBook.getChapterNo());
+            existingBook.setPublicationDate(updatedBook.getPublicationDate());
+            existingBook.getCategory().setCategoryName(updatedBook.getCategory().getCategoryName());
+
+            // Save the updated book
+            bookRepository.save(existingBook);
+        } else {
+            // Handle the case where the book with the given ID doesn't exist
+            throw new RuntimeException("Book not found with ID: " + updatedBook.getBookId());
+        }
+    }
+
+    public Book getBookById(Long id) {
+        // Retrieve a book by its ID using findById method
+        return bookRepository.findById(Math.toIntExact(id))
+                .orElseThrow(() -> new RuntimeException("Book not found with ID: " + id));
+    }
+
     // Additional methods if needed
 }
 

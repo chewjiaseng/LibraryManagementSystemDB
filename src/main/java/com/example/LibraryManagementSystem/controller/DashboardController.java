@@ -11,7 +11,11 @@ import com.example.LibraryManagementSystem.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -40,6 +44,33 @@ public class DashboardController {
         model.addAttribute("chapters", chapters);
 
         return "dashboard";
+    }
+
+        @GetMapping("/editBook/{id}")
+        public String showEditBookPage(@PathVariable Long id, Model model) {
+            // Retrieve the book by ID from the database
+            Book book = bookService.getBookById(id);
+
+            // Add the book to the model
+            model.addAttribute("book", book);
+
+            return "editBook";
+        }
+
+    @PostMapping("/editBook")
+    public String editBook(@ModelAttribute("book") Book updatedBook, Model model) {
+        // Save the publisher first
+        publisherService.savePublisher(updatedBook.getPublisher());
+
+        // Now you can save the book
+        bookService.updateBook(updatedBook);
+
+        // Retrieve the updated list of books
+        List<Book> updatedBooks = bookService.getAllBooks();
+        model.addAttribute("books", updatedBooks);
+
+        // Return the dashboard page
+        return "redirect:/dashboard";
     }
 }
 
