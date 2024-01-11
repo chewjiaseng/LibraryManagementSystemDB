@@ -9,11 +9,14 @@ import com.example.LibraryManagementSystem.service.CategoryService;
 import com.example.LibraryManagementSystem.service.ChapterService;
 import com.example.LibraryManagementSystem.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Controller
@@ -48,5 +51,27 @@ public class DashboardController {
         model.addAttribute("book", new Category());
         return "add_book";
     }
+
+    @DeleteMapping("/api/books/{bookId}")
+    @ResponseBody
+    public ResponseEntity<Object> deleteBook(@PathVariable Integer bookId) {
+        try {
+            bookService.deleteBookById(bookId);
+            List<Book> updatedBooks = bookService.getAllBooks();
+
+            // Returning a success message as JSON along with a 200 OK status
+            return ResponseEntity.ok().body(updatedBooks);
+        } catch (EntityNotFoundException e) {
+            // Returning a 404 Not Found status along with an error message
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            // Returning a 500 Internal Server Error status along with an error message
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error deleting book: " + e.getMessage());
+        }
+    }
+
+
+
 }
 

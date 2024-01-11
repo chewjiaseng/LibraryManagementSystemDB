@@ -1,7 +1,9 @@
 package com.example.LibraryManagementSystem.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "book")
@@ -15,11 +17,14 @@ public class Book {
     private Integer chapterNo;
     private Date publicationDate;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Chapter> chapters = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)  // Cascade deletion to associated chapters
     @JoinColumn(name = "publisherId")
     private Publisher publisher;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)  // Cascade deletion to associated chapters
     @JoinColumn(name = "categoryId")
     private Category category;
 
@@ -80,6 +85,12 @@ public class Book {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public List<Chapter> getChapters() {
+        return null;
+    }
+
+
 // Constructors, getters, setters
 }
 
