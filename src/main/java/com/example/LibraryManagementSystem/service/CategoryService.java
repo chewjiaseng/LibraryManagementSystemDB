@@ -5,6 +5,7 @@ import com.example.LibraryManagementSystem.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import javax.transaction.Transactional;
 
 @Service
 public class CategoryService {
@@ -17,5 +18,10 @@ public class CategoryService {
     }
 
     public Category saveCategory(Category category) {return categoryRepository.save(category);}
+
+    @Transactional
+    public void deleteCategoryById(Integer categoryId) {
+        categoryRepository.deleteById(categoryId);
+    }
 }
 
