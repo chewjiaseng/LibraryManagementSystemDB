@@ -1,11 +1,9 @@
+<!-- editBook.html -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-
+    <!-- Head content, including Bootstrap styles -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyNEAUV6AAsjFuCJZ6P5q8b+shU0s2P4X"
@@ -13,7 +11,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
           crossorigin="anonymous">
-
     <!-- Custom CSS for styling -->
     <style>
         body {
@@ -162,6 +159,7 @@
 </head>
 
 <body>
+<!-- Navigation bar (similar to the dashboard) -->
 <!-- Enhanced Bootstrap Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
@@ -189,46 +187,42 @@
 </nav>
 
 <div class="container mt-4">
-    <h2>Book Information</h2>
+    <h2>Edit Book</h2>
 
-    <!-- Simplified table design -->
-    <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-        <tr>
-            <th>Book ID</th>
-            <th>Book Name</th>
-            <th>Category</th>
-            <th>Chapter No</th>
-            <th>Publisher Name</th>
-            <th>Publication Date</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Iterate over the books and display the data -->
-        <tr th:each="book : ${books}">
-            <td th:text="${book.bookId}"></td>
-            <td th:text="${book.bookName}"></td>
-            <td th:text="${book.category.categoryName}"></td>
-            <td th:text="${book.chapterNo}"></td>
-            <td th:text="${book.publisher.publisherName}"></td>
-            <td th:text="${#dates.format(book.publicationDate, 'yyyy-MM-dd')}"></td>
-            <td>
-                <a th:href="@{/editBook/{id}(id=${book.bookId})}" class="btn btn-edit" role="button">Edit</a>
-                <button class="btn btn-delete" type="button">Delete</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <!-- Edit form in editBook.html -->
+    <form th:action="@{/editBook}" method="post" th:object="${book}">
+        <!-- Input fields for book details -->
+        <input type="hidden" th:field="*{bookId}" /> <!-- Include bookId as a hidden field -->
+        <div class="mb-3">
+            <label for="bookName" class="form-label">Book Name</label>
+            <input type="text" class="form-control" id="bookName" th:field="*{bookName}">
+        </div>
 
-    <!-- Create button -->
-    <button class="btn btn-create" type="button">Create</button>
-    <!-- Add this code where you want to display the success message -->
-    <div th:if="${successMessage}" class="alert alert-success">
-        <strong th:text="${successMessage}"></strong>
-    </div>
+        <div class="mb-3">
+            <label for="publisherName" class="form-label">Publisher Name</label>
+            <input type="text" class="form-control" id="publisherName" th:field="*{publisher.publisherName}">
+        </div>
+
+        <div class="mb-3">
+            <label for="chapterNo" class="form-label">Chapter No</label>
+            <input type="number" class="form-control" id="chapterNo" th:field="*{chapterNo}">
+        </div>
+
+        <div class="mb-3">
+            <label for="publicationDate" class="form-label">Publication Date</label>
+            <input type="date" class="form-control" id="publicationDate" th:field="*{publicationDate}" th:value="${#dates.format(book.publicationDate, 'yyyy-MM-dd')}">
+        </div>
+
+        <div class="mb-3">
+            <label for="categoryName" class="form-label">Category Name</label>
+            <input type="text" class="form-control" id="categoryName" th:field="*{category.categoryName}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
 </div>
 
+<!-- Bootstrap JS and dependencies (similar to the dashboard) -->
 <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -239,7 +233,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyNEAUV6AAsjFuCJZ6P5q8b+shU0s2P4X"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>

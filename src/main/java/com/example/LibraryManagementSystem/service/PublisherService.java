@@ -17,5 +17,8 @@ public class PublisherService {
     }
 
     // Additional methods if needed
+    public void savePublisher(Publisher publisher) {
+        publisherRepository.save(publisher);
+    }
 }
 

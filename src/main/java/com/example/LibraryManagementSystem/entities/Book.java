@@ -1,31 +1,28 @@
 package com.example.LibraryManagementSystem.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "book")
 public class Book {
 
-    @GeneratedValue
     @Id
     private Integer bookId;
 
     private String bookName;
     private Integer chapterNo;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date publicationDate;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Chapter> chapters = new ArrayList<>();
-
-    @ManyToOne(cascade = CascadeType.ALL)  // Cascade deletion to associated chapters
+    @ManyToOne
     @JoinColumn(name = "publisherId")
     private Publisher publisher;
 
-    @ManyToOne(cascade = CascadeType.ALL)  // Cascade deletion to associated chapters
-    @JoinColumn(name = "categoryId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Book(){}
@@ -85,12 +82,6 @@ public class Book {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-    public List<Chapter> getChapters() {
-        return null;
-    }
-
-
 // Constructors, getters, setters
 }
 

@@ -1,16 +1,15 @@
 package com.example.LibraryManagementSystem.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "publisher")
 public class Publisher {
 
-    @GeneratedValue
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "publisher_sequence")
+    @SequenceGenerator(name = "publisher_sequence", sequenceName = "PUBLISHER_SEQ", allocationSize = 1)
+    @Column(name = "publisher_id")
     private Integer publisherId;
 
     private String publisherName;
