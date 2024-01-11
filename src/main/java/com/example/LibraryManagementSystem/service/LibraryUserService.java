@@ -22,8 +22,8 @@ public class LibraryUserService {
         return userRepository.findAll();
     }
 
-    public LibraryUser getUserById(Long userId) {
-        return userRepository.findByUserId(userId).orElse(null);
+    public LibraryUser getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
     }
 
 

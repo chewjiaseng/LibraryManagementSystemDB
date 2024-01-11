@@ -1,9 +1,6 @@
 package com.example.LibraryManagementSystem.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 public class LibraryUser {
@@ -12,6 +9,8 @@ public class LibraryUser {
     @Id
     private Long userId;
     private String name;
+
+    @Column(unique = true)
     private String email;
     private String password;
     private String role;

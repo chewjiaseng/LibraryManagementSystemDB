@@ -24,9 +24,9 @@ public class LibraryUserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String userId, @RequestParam String password, @RequestParam String role, Model model) {
+    public String login(@RequestParam String email, @RequestParam String password, @RequestParam String role, Model model) {
         // Fetch the user from the database based on the user ID
-        LibraryUser user = userService.getUserById(Long.parseLong(userId));
+        LibraryUser user = userService.getUserByEmail(email);
 
         // Check if the user exists and the provided password and role are correct
         if (user != null && user.getPassword().equals(password) && user.getRole().equals(role)) {
