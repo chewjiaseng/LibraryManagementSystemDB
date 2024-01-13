@@ -11,6 +11,7 @@ import java.util.List;
 @Table(name = "book")
 public class Book {
 
+    @GeneratedValue
     @Id
     private Integer bookId;
 
@@ -19,8 +20,6 @@ public class Book {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date publicationDate;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Chapter> chapters = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "publisherId")
     private Publisher publisher;

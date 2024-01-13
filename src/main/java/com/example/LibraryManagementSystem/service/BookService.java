@@ -1,6 +1,7 @@
 package com.example.LibraryManagementSystem.service;
 
 import com.example.LibraryManagementSystem.entities.Book;
+import com.example.LibraryManagementSystem.entities.Category;
 import com.example.LibraryManagementSystem.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,8 @@ public class BookService {
             throw new RuntimeException("Book not found with ID: " + updatedBook.getBookId());
         }
     }
+
+    public Book saveBook(Book book) {return bookRepository.save(book);}
 
     public Book getBookById(Long id) {
         // Retrieve a book by its ID using findById method
