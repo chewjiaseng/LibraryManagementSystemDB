@@ -77,20 +77,6 @@
       background-color: #bb2d3b;
       border: 2px solid #bb2d3b;
     }
-
-    /* Create button styling */
-    .btn-create {
-      border-radius: 20px;
-      background-color: #28a745;
-      color: #fff;
-      border: 2px solid #28a745;
-      padding: 8px 15px;
-    }
-
-    .btn-create:hover {
-      background-color: #218838;
-      border: 2px solid #218838;
-    }
   </style>
 </head>
 
@@ -106,11 +92,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="/dashboard" th:href="@{/dashboard}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/dashboard" th:href="@{/dashboard}">Book</a>
-
+          <a class="nav-link" href="/category/list" th:href="@{/category/list}">Category</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard" th:href="@{/publisher/list}">Publisher</a>
         </li>
       </ul>
       <!-- Logout button styling -->
@@ -132,12 +120,9 @@
     <div>
       <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
       <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
+      <a href="/category/list" th:href="@{/category/list}"><button type="button" class="btn btn-secondary">Back</button></a>
     </div>
   </form>
-
-<!--  <a href="/addCategory" th:href="@{/category/list}"><button class="btn btn-secondary" type="button">Cancel</button></a>-->
-<!--  <a href="/addCategory" th:href="@{/category/addCategory}"><button class="btn btn-create" type="button">Create Category</button></a>-->
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
