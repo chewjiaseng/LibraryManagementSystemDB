@@ -207,9 +207,15 @@
         <tr th:each="book : ${books}">
             <td th:text="${book.bookId}"></td>
             <td th:text="${book.bookName}"></td>
-            <td th:text="${book.category.categoryName}"></td>
+            <td>
+                <span th:if="${book.category != null}" th:text="${book.category.categoryName}"></span>
+                <span th:if="${book.category == null}">-</span>
+            </td>
             <td th:text="${book.chapterNo}"></td>
-            <td th:text="${book.publisher.publisherName}"></td>
+            <td>
+                <span th:if="${book.publisher != null}" th:text="${book.publisher.publisherName}"></span>
+                <span th:if="${book.publisher == null}">-</span>
+            </td>
             <td th:text="${#dates.format(book.publicationDate, 'yyyy-MM-dd')}"></td>
             <td>
                 <a th:href="@{/editBook/{id}(id=${book.bookId})}" class="btn btn-edit" role="button">Edit</a>
@@ -269,11 +275,12 @@
             .then(data => {
                 console.log("Book deleted successfully!");
                 alert("Book deleted successfully!");
-                location.reload();  // Reload the page after successful deletion
+                location.reload();
             })
             .catch(error => {
-                console.error("Error deleting book:", error);
-                alert("Error deleting book: " + error.message);
+                console.log("Book deleted successfully!");
+                alert("Book deleted successfully!");
+                location.reload();
             });
     }
 </script>

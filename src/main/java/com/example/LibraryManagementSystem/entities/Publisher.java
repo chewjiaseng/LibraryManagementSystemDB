@@ -1,6 +1,7 @@
 package com.example.LibraryManagementSystem.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "publisher")
@@ -11,6 +12,9 @@ public class Publisher {
     @SequenceGenerator(name = "publisher_sequence", sequenceName = "PUBLISHER_SEQ", allocationSize = 1)
     @Column(name = "publisher_id")
     private Integer publisherId;
+
+    @OneToMany(mappedBy = "publisher")
+    private List<Book> books;
 
     private String publisherName;
 
@@ -38,6 +42,10 @@ public class Publisher {
 
     public void setPublisherName(String publisherName) {
         this.publisherName = publisherName;
+    }
+
+    public List<Book> getBooks() {
+        return books;
     }
     // Constructors, getters, setters
 }
