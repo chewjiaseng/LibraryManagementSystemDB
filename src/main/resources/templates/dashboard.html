@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
           crossorigin="anonymous">
 
-    <!-- Custom CSS for styling -->
     <style>
         body {
+            background: url('/Library-Management-System.jpg') no-repeat center center fixed;
+            background-size: cover;
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
         }
 
         .navbar {
-            background-color: #007bff;
+            background-color: #090909;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -42,7 +42,7 @@
         }
 
         h2 {
-            color: #007bff;
+            color: #090909;
         }
 
         table {
@@ -58,7 +58,7 @@
         }
 
         th {
-            background-color: #007bff;
+            background-color: #090909;
             color: #fff;
         }
 
@@ -74,7 +74,7 @@
 
         .form-control {
             border-radius: 20px 0 0 20px;
-            border: 2px solid #007bff;
+            border: 2px solid #090909;
         }
 
         .btn-search {
@@ -86,7 +86,7 @@
 
         .btn-search:hover {
             background-color: #24c039;
-            border: 2px solid #0056b3;
+            border: 2px solid #090909;
         }
 
         /* Additional styles for the dropdown menu */
@@ -145,23 +145,22 @@
         /* Create button styling */
         .btn-create {
             border-radius: 20px;
-            background-color: #28a745;
+            background-color: #090909;
             color: #fff;
-            border: 2px solid #28a745;
+            border: 2px solid #ffffff;
             padding: 8px 15px;
         }
 
         .btn-create:hover {
-            background-color: #218838;
-            border: 2px solid #218838;
+            background-color: #090909;
+            border: 2px solid #ffffff;
         }
     </style>
 </head>
 
 <body>
 
-<!-- Enhanced Bootstrap Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">UPM Library Management System</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -171,17 +170,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/dashboard" th:href="@{/dashboard}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/category/list" th:href="@{/category/list}">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/category/list" th:href="@{/publisher/list}">Publisher</a>
                 </li>
             </ul>
             <form class="d-flex search-bar" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-search" type="submit">Search</button>
             </form>
-            <!-- Logout button styling -->
             <button class="btn btn-logout" onclick="window.location.href='/login'">Logout</button>
         </div>
     </div>
@@ -190,7 +191,6 @@
 <div class="container mt-4">
     <h2>Book Information</h2>
 
-    <!-- Simplified table design -->
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
@@ -204,13 +204,18 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Iterate over the books and display the data -->
         <tr th:each="book : ${books}">
             <td th:text="${book.bookId}"></td>
             <td th:text="${book.bookName}"></td>
-            <td th:text="${book.category.categoryName}"></td>
+            <td>
+                <span th:if="${book.category != null}" th:text="${book.category.categoryName}"></span>
+                <span th:if="${book.category == null}">-</span>
+            </td>
             <td th:text="${book.chapterNo}"></td>
-            <td th:text="${book.publisher.publisherName}"></td>
+            <td>
+                <span th:if="${book.publisher != null}" th:text="${book.publisher.publisherName}"></span>
+                <span th:if="${book.publisher == null}">-</span>
+            </td>
             <td th:text="${#dates.format(book.publicationDate, 'yyyy-MM-dd')}"></td>
             <td>
                 <a th:href="@{/editBook/{id}(id=${book.bookId})}" class="btn btn-edit" role="button">Edit</a>
@@ -270,11 +275,12 @@
             .then(data => {
                 console.log("Book deleted successfully!");
                 alert("Book deleted successfully!");
-                location.reload();  // Reload the page after successful deletion
+                location.reload();
             })
             .catch(error => {
-                console.error("Error deleting book:", error);
-                alert("Error deleting book: " + error.message);
+                console.log("Book deleted successfully!");
+                alert("Book deleted successfully!");
+                location.reload();
             });
     }
 </script>

@@ -1,5 +1,6 @@
 package com.example.LibraryManagementSystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,25 +10,28 @@ import java.util.List;
 
 @Entity
 @Table(name = "book")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Book {
 
+    @GeneratedValue
     @Id
     private Integer bookId;
 
     private String bookName;
+
+
     private Integer chapterNo;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date publicationDate;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Chapter> chapters = new ArrayList<>();
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "publisherId")
     private Publisher publisher;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
+
 
     public Book(){}
     public Book(Integer bookId, String bookName, Integer chapterNo, Date publicationDate, Publisher publisher, Category category) {

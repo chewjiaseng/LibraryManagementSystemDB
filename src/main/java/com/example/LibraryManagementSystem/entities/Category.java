@@ -23,6 +23,14 @@ public class Category {
         this.categoryName = categoryName;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     public Integer getCategoryId() {
         return categoryId;
     }
@@ -38,5 +46,7 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+
 }
 

@@ -66,7 +66,6 @@
       background-color: #f8f9fa;
     }
 
-    /* Logout button styling */
     .btn-logout {
       margin-left: 10px;
       border-radius: 20px;
@@ -79,12 +78,54 @@
       background-color: #bb2d3b;
       border: 2px solid #bb2d3b;
     }
+
+    .btn-edit,
+    .btn-delete {
+      border-radius: 20px;
+      padding: 8px 15px;
+      margin-bottom: 10px;
+    }
+
+    .btn-edit {
+      background-color: #007bff;
+      color: #fff;
+      border: 2px solid #007bff;
+    }
+
+    .btn-delete {
+      background-color: #dc3545;
+      color: #fff;
+      border: 2px solid #dc3545;
+    }
+
+    .btn-edit:hover {
+      background-color: #0056b3;
+      border: 2px solid #0056b3;
+    }
+
+    .btn-delete:hover {
+      background-color: #bb2d3b;
+      border: 2px solid #bb2d3b;
+    }
+
+    .btn-create {
+      border-radius: 20px;
+      background-color: #28a745;
+      color: #fff;
+      border: 2px solid #28a745;
+      padding: 8px 15px;
+    }
+
+    .btn-create:hover {
+      background-color: #218838;
+      border: 2px solid #218838;
+    }
   </style>
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">UPM Library Management System</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -103,28 +144,36 @@
           <a class="nav-link" href="/dashboard" th:href="@{/publisher/list}">Publisher</a>
         </li>
       </ul>
-      <!-- Logout button styling -->
       <button class="btn btn-logout" onclick="window.location.href='/login'">Logout</button>
     </div>
   </div>
 </nav>
 
 <div class="container mt-4">
+  <h2>Publisher Information</h2>
 
-  <h2>Create Category</h2>
-  <form action="#" th:action="@{/category/add}" th:object="${category}" method="post">
-    <div class="row mb-3">
-      <label for="input-name" class="col-sm-3 col-form-label">Category Name</label>
-      <div class="col-sm-9">
-        <input type="text" th:field="*{categoryName}" class="form-control" id="input-name" />
-      </div>
-    </div>
-    <div>
-      <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
-      <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
-      <a href="/category/list" th:href="@{/category/list}"><button type="button" class="btn btn-secondary">Back</button></a>
-    </div>
-  </form>
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th>Publisher ID</th>
+      <th>Publisher Name</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="publisher : ${publishers}">
+      <td th:text="${publisher.publisherId}"></td>
+      <td th:text="${publisher.publisherName}"></td>
+      <td>
+        <button class="btn btn-edit" type="button">Edit</button>
+        <button class="btn btn-delete" type="button" th:onclick="'confirmDelete(' + ${publisher.publisherId} + ')'" >Delete</button>
+    </tr>
+    </tbody>
+  </table>
+
+  <a href="/" th:href="@{/publisher/addPublisher}"><button class="btn btn-create" type="button">Create Publisher</button></a>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -138,6 +187,41 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"
 ></script>
+
+  <script th:inline="javascript">
+    function confirmDelete(publisherId) {
+    var confirmation = confirm('Are you sure you want to delete this publisher?');
+    if (confirmation) {
+    // If user confirms, call a function to send a delete request
+    deletePublisher(publisherId);
+  }
+  }
+
+    function deletePublisher(publisherId) {
+    // Use fetch to send a delete request to the server
+    fetch('/publisher/delete/' + publisherId, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+            .then(response => {
+              if (response.ok) {
+                console.log('Publisher deleted successfully!');
+                alert('Publisher deleted successfully!');
+                // Reload the page after successful deletion
+                location.reload();
+              } else {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+            })
+            .catch(error => {
+              console.error('Error deleting publisher:', error);
+              alert('Error deleting publisher');
+            });
+  }
+
+</script>
 
 </body>
 
