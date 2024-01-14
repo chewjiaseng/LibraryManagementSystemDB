@@ -44,6 +44,10 @@ public class BookService {
 
     public Book saveBook(Book book) {return bookRepository.save(book);}
 
+    public void saveAllBooks(List<Book> books) {
+        bookRepository.saveAll(books);
+    }
+
     public Book getBookById(Long id) {
         // Retrieve a book by its ID using findById method
         return bookRepository.findById(Math.toIntExact(id))
