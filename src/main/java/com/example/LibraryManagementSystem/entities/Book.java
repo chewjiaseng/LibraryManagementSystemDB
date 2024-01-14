@@ -16,6 +16,9 @@ public class Book {
     private Integer bookId;
 
     private String bookName;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Book> books;
     private Integer chapterNo;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date publicationDate;
