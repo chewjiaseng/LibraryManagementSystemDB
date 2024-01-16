@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("category")
@@ -48,4 +49,24 @@ public class CategoryController {
         return "redirect:/category/list";  // Redirect to the category page after deletion
     }
 
+    @GetMapping("/edit/{categoryId}")
+    public String editCategory(@PathVariable Integer categoryId, Model model) {
+        Category category = categoryService.getCategoryById(categoryId);
+        model.addAttribute("category", category);
+        return "editCategory";
+    }
+
+    @PostMapping("/update")
+    public String updateCategory(@ModelAttribute("category") Category category) {
+        // Fetch the existing category from the database using category.getCategoryId()
+        Category existingCategory = categoryService.getCategoryById(category.getCategoryId());
+
+        // Update only the category name
+        existingCategory.setCategoryName(category.getCategoryName());
+
+        // Save the updated category back to the database
+        categoryService.saveCategory(existingCategory);
+
+        return "redirect:/category/list";
+    }
 }
