@@ -66,6 +66,29 @@
       background-color: #f8f9fa;
     }
 
+    /* Custom styling for the search bar */
+    .search-bar {
+      display: flex;
+      align-items: center;
+    }
+
+    .form-control {
+      border-radius: 20px 0 0 20px;
+      border: 2px solid #007bff;
+    }
+
+    .btn-search {
+      border-radius: 0 20px 20px 0;
+      background-color: #198e2f;
+      color: #fff;
+      border: 2px solid #007bff;
+    }
+
+    .btn-search:hover {
+      background-color: #24c039;
+      border: 2px solid #0056b3;
+    }
+
     .btn-logout {
       margin-left: 10px;
       border-radius: 20px;
@@ -141,9 +164,13 @@
           <a class="nav-link" href="/category/list" th:href="@{/category/list}">Category</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/dashboard" th:href="@{/publisher/list}">Publisher</a>
+          <a class="nav-link" href="/category/list" th:href="@{/publisher/list}">Publisher</a>
         </li>
       </ul>
+      <form class="d-flex search-bar" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-search" type="submit">Search</button>
+      </form>
       <button class="btn btn-logout" onclick="window.location.href='/login'">Logout</button>
     </div>
   </div>
@@ -166,8 +193,11 @@
       <td th:text="${publisher.publisherId}"></td>
       <td th:text="${publisher.publisherName}"></td>
       <td>
-        <button class="btn btn-edit" type="button">Edit</button>
+        <a th:href="@{'/publisher/edit/' + ${publisher.publisherId}}">
+          <button class="btn btn-edit" type="button">Edit</button>
+        </a>
         <button class="btn btn-delete" type="button" th:onclick="'confirmDelete(' + ${publisher.publisherId} + ')'" >Delete</button>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -188,16 +218,16 @@
         crossorigin="anonymous"
 ></script>
 
-  <script th:inline="javascript">
-    function confirmDelete(publisherId) {
+<script th:inline="javascript">
+  function confirmDelete(publisherId) {
     var confirmation = confirm('Are you sure you want to delete this publisher?');
     if (confirmation) {
-    // If user confirms, call a function to send a delete request
-    deletePublisher(publisherId);
-  }
+      // If user confirms, call a function to send a delete request
+      deletePublisher(publisherId);
+    }
   }
 
-    function deletePublisher(publisherId) {
+  function deletePublisher(publisherId) {
     // Use fetch to send a delete request to the server
     fetch('/publisher/delete/' + publisherId, {
       method: 'DELETE',

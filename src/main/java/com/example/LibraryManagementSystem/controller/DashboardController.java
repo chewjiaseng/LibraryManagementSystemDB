@@ -26,7 +26,7 @@ public class DashboardController {
     private PublisherService publisherService;
     @Autowired
     private BookService bookService;
-    
+
     @GetMapping("/dashboard")
     public String showDashboard(Model model) {
         List<Category> categories = categoryService.getAllCategories();
@@ -64,7 +64,7 @@ public class DashboardController {
 
     @GetMapping("/editBook/{id}")
     public String showEditBookPage(@PathVariable Long id, Model model) {
-            // Retrieve the book by ID from the database
+        // Retrieve the book by ID from the database
         Book book = bookService.getBookById(id);
 
         // Add the book to the model
@@ -109,4 +109,3 @@ public class DashboardController {
     }
 
 }
-
