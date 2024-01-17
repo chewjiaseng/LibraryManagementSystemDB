@@ -53,24 +53,4 @@ public class PublisherController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @GetMapping("/edit/{publisherId}")
-    public String editPublisher(@PathVariable Integer publisherId, Model model) {
-        Publisher publisher = publisherService.getPublisherById(publisherId);
-        model.addAttribute("publisher", publisher);
-        return "editPublisher";
-    }
-
-    @PostMapping("/update")
-    public String updatePublisher(@ModelAttribute("publisher") Publisher publisher) {
-        // Fetch the existing publisher from the database using publisher.getPublisherId()
-        Publisher existingPublisher = publisherService.getPublisherById(publisher.getPublisherId());
-
-        // Update only the publisher name
-        existingPublisher.setPublisherName(publisher.getPublisherName());
-
-        // Save the updated publisher back to the database
-        publisherService.savePublisher(existingPublisher);
-        return "redirect:/publisher/list";
-    }
 }

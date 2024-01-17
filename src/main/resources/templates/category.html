@@ -66,39 +66,6 @@
       background-color: #f8f9fa;
     }
 
-    /* Custom styling for the search bar */
-    .search-bar {
-      display: flex;
-      align-items: center;
-    }
-
-    .form-control {
-      border-radius: 20px 0 0 20px;
-      border: 2px solid #007bff;
-    }
-
-    .btn-search {
-      border-radius: 0 20px 20px 0;
-      background-color: #198e2f;
-      color: #fff;
-      border: 2px solid #007bff;
-    }
-
-    .btn-search:hover {
-      background-color: #24c039;
-      border: 2px solid #0056b3;
-    }
-
-    /* Additional styles for the dropdown menu */
-    .dropdown-menu {
-      border-radius: 10px;
-    }
-
-    .dropdown-item {
-      padding: 10px;
-    }
-
-    /* Logout button styling */
     .btn-logout {
       margin-left: 10px;
       border-radius: 20px;
@@ -112,7 +79,6 @@
       border: 2px solid #bb2d3b;
     }
 
-    /* Edit and Delete button styling */
     .btn-edit,
     .btn-delete {
       border-radius: 20px;
@@ -142,7 +108,6 @@
       border: 2px solid #bb2d3b;
     }
 
-    /* Create button styling */
     .btn-create {
       border-radius: 20px;
       background-color: #28a745;
@@ -176,13 +141,9 @@
           <a class="nav-link" href="/category/list" th:href="@{/category/list}">Category</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/category/list" th:href="@{/publisher/list}">Publisher</a>
+          <a class="nav-link" href="/dashboard" th:href="@{/publisher/list}">Publisher</a>
         </li>
       </ul>
-      <form class="d-flex search-bar" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-search" type="submit">Search</button>
-      </form>
       <button class="btn btn-logout" onclick="window.location.href='/login'">Logout</button>
     </div>
   </div>
@@ -205,11 +166,8 @@
       <td th:text="${category.categoryId}"></td>
       <td th:text="${category.categoryName}"></td>
       <td>
-        <a th:href="@{/category/edit/{categoryId}(categoryId=${category.categoryId})}">
-          <button class="btn btn-edit" type="button">Edit</button>
-        </a>
-        <button class="btn btn-delete" type="button" th:onclick="'confirmDelete(' + ${category.categoryId} + ')'">Delete</button>
-      </td>
+        <button class="btn btn-edit" type="button">Edit</button>
+        <button class="btn btn-delete" type="button" th:onclick="'confirmDelete(' + ${category.categoryId} + ')'" >Delete</button>
     </tr>
     </tbody>
   </table>
