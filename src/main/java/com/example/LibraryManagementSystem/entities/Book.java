@@ -1,39 +1,54 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package com.example.LibraryManagementSystem.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 @Entity
-@Table(name = "book")
+@Table(
+        name = "book"
+)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Book {
-
     @GeneratedValue
     @Id
     private Integer bookId;
-
     private String bookName;
-
-
     private Integer chapterNo;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(
+            pattern = "yyyy-MM-dd"
+    )
     private Date publicationDate;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "publisherId")
+    @ManyToOne(
+            cascade = {CascadeType.ALL}
+    )
+    @JoinColumn(
+            name = "publisherId"
+    )
     private Publisher publisher;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @ManyToOne(
+            cascade = {CascadeType.ALL}
+    )
+    @JoinColumn(
+            name = "category_id"
+    )
     private Category category;
 
+    public Book() {
+    }
 
-    public Book(){}
     public Book(Integer bookId, String bookName, Integer chapterNo, Date publicationDate, Publisher publisher, Category category) {
         this.bookId = bookId;
         this.bookName = bookName;
@@ -44,7 +59,7 @@ public class Book {
     }
 
     public Integer getBookId() {
-        return bookId;
+        return this.bookId;
     }
 
     public void setBookId(Integer bookId) {
@@ -52,7 +67,7 @@ public class Book {
     }
 
     public String getBookName() {
-        return bookName;
+        return this.bookName;
     }
 
     public void setBookName(String bookName) {
@@ -60,7 +75,7 @@ public class Book {
     }
 
     public Integer getChapterNo() {
-        return chapterNo;
+        return this.chapterNo;
     }
 
     public void setChapterNo(Integer chapterNo) {
@@ -68,7 +83,7 @@ public class Book {
     }
 
     public Date getPublicationDate() {
-        return publicationDate;
+        return this.publicationDate;
     }
 
     public void setPublicationDate(Date publicationDate) {
@@ -76,7 +91,7 @@ public class Book {
     }
 
     public Publisher getPublisher() {
-        return publisher;
+        return this.publisher;
     }
 
     public void setPublisher(Publisher publisher) {
@@ -84,12 +99,10 @@ public class Book {
     }
 
     public Category getCategory() {
-        return category;
+        return this.category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
     }
-// Constructors, getters, setters
 }
-

@@ -6,8 +6,9 @@ import java.util.List;
 @Entity
 @Table(name = "category")
 public class Category {
+
+    @GeneratedValue
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer categoryId;
 
     private String categoryName;
