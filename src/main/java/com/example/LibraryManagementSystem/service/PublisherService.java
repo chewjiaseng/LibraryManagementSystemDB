@@ -48,7 +48,7 @@ public class PublisherService {
     public Publisher getPublisherById(Integer publisherId) {
         Optional<Publisher> optionalPublisher = publisherRepository.findById(publisherId);
         return optionalPublisher.orElse(null);
-  }
+    }
 
 }
 

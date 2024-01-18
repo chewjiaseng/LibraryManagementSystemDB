@@ -46,7 +46,7 @@ public class CategoryService {
     public Category getCategoryById(Integer categoryId) {
         Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
         return optionalCategory.orElse(null);
-}
+    }
 
 
 }
